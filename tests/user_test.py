@@ -63,3 +63,15 @@ def test_dashboard_access(application, client):
     with application.app_context():
         user = User('clf9@njit.edu', 'testtest')
         assert user.is_authenticated() == True
+
+
+def test_dashboard_denial(application, client):
+    with application.app_context():
+        user = User('keith@webizly.com', 'testtest')
+        db.session.add(user)
+        db.session.commit()
+        res2 = client.post('/dashboard')
+        res = client.post('/login', data=dict(email="keith@webizly.com", password='testtest'), follow_redirects=True)
+        assert res2.status_code == 405
+        assert res.status_code == 200
+        db.session.delete(user)
