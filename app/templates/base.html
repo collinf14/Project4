@@ -83,7 +83,22 @@
     {{ bootstrap.load_js() }}
 {% endblock %}
 <footer class="text-center mt-5">
-    Environment: {{ deployment_environment }} - Copyright: {{ year }} {{ format_price(100) }}
+        <hr>
+        <b>Technology Web Pages</b><br>
+        Environment: {{ deployment_environment }} - Copyright: {{ year }}<br>
+        Message: {{ mymessage }} {{ format_price(100) }}<br>
+        Contact: <a href="mailto:EMAIL_ADDRESS">clf9@njit.edu</a><br>
+
+        <a href="{{ url_for('simple_pages.show', page="about") }}">About Page</a><br>
+        <a href="{{ url_for('simple_pages.show', page="index") }}">Index Page</a><br>
+        <a href="{{ url_for('simple_pages.show', page="page1") }}">Git Page</a><br>
+        <a href="{{ url_for('simple_pages.show', page="page2") }}">Docker Page</a><br>
+        <a href="{{ url_for('simple_pages.show', page="page3") }}">Python/Flask Page</a><br>
+        <a href="{{ url_for('simple_pages.show', page="page4") }}">CI/CD Page</a><br>
+        <a href="{{ url_for('simple_pages.show', page="page5") }}">OOP Page</a><br>
+        <a href="{{ url_for('simple_pages.show', page="page6") }}">AAA Testing Page</a><br>
+        <a href="{{ url_for('simple_pages.show', page="page7") }}">Calc. (OOP) Page</a><br>
+        <a href="{{ url_for('simple_pages.show', page="page8") }}">Calc. (SOLID) Page</a><br>
 </footer>
 </body>
 </html>
