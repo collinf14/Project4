@@ -1,4 +1,3 @@
-
 """This test the homepage"""
 
 def test_request_main_menu_links(client):
@@ -7,4 +6,3 @@ def test_request_main_menu_links(client):
     assert response.status_code == 200
     assert b'href="/login"' in response.data
     assert b'href="/register"' in response.data
-
