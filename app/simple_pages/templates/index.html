@@ -1,10 +1,24 @@
+
+
 {% extends "base.html" %}
 {% block content %}
     <div class="row">
         <article class="col-8 lh-lg fs-5">
 
             <h1>Index Page</h1>
-            {{ lipsum (n=5, html=True, min=20, max=100) }}
+            <p>
+                This website page is used for the storing of different comma seperated value (.csv) files. The first type
+                of file that can be uploaded is a map csv file with the data fields being the longitude, latitude, and
+                population of that city. This file and those data fields then populate a Google Maps like feature that
+                puts each city on a digital map that one can view for a visual location of each uploaded city. The second
+                type of csv file that can be uploaded is a music playlist file. These files' data fields must include the
+                name of the artist, name of the song, year the song way release, and genre of music the song is in. These
+                data fields are then used to populate a database that is displayed on the song management browse page.
+                This database is also displayed on the dashboard page for ease of viewership by a user.
+            </p>
+            <p>
+                Please login (on the right) or register for an account (top right) if interested! :)
+            </p>
         </article>
         {% if current_user.is_authenticated == false %}
             <aside class="col-4">
@@ -22,3 +36,4 @@
 
     </div>
 {% endblock %}
+</article>
