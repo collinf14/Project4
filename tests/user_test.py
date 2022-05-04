@@ -40,3 +40,13 @@ def test_adding_user(application):
         db.session.delete(user)
         assert db.session.query(User).count() == 0
         assert db.session.query(Song).count() == 0
+
+
+def test_login_auth(application, client):
+    with application.app_context():
+        user = User('keith@webizly.com', 'testtest')
+        db.session.add(user)
+        db.session.commit()
+        res = client.post('/login', data=dict(email="keith@webizly.com", password='testtest'), follow_redirects=True)
+        assert res.status_code == 200
+        db.session.delete(user)
