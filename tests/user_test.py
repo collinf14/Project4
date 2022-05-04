@@ -50,3 +50,10 @@ def test_login_auth(application, client):
         res = client.post('/login', data=dict(email="keith@webizly.com", password='testtest'), follow_redirects=True)
         assert res.status_code == 200
         db.session.delete(user)
+
+
+def test_register_auth(client):
+    with client:
+        res = client.post('/register', data=dict(email="keith@webizly.com", password='testtest'), follow_redirects=True)
+        print(res.data)
+        assert res.status_code == 200
