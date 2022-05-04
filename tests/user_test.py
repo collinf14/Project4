@@ -11,7 +11,7 @@ def test_adding_user(application):
         assert db.session.query(Song).count() == 0
         # showing how to add a record
         # create a record
-        user = User('keith@webizly.com', 'testtest')
+        user = User('clf9@njit.edu', 'testtest')
         # add it to get ready to be committed
         db.session.add(user)
         # call the commit
@@ -19,10 +19,10 @@ def test_adding_user(application):
         # assert that we now have a new user
         # assert db.session.query(User).count() == 1
         # finding one user record by email
-        user = User.query.filter_by(email='keith@webizly.com').first()
+        user = User.query.filter_by(email='clf9@njit.edu').first()
         log.info(user)
         # asserting that the user retrieved is correct
-        assert user.email == 'keith@webizly.com'
+        assert user.email == 'clf9@njit.edu'
         # this is how you get a related record ready for insert
         user.songs = [Song("test", "smap", "1900", "rock"), Song("test2", "te", "1900", "rock")]
         # commit is what saves the songs
@@ -44,16 +44,22 @@ def test_adding_user(application):
 
 def test_login_auth(application, client):
     with application.app_context():
-        user = User('keith@webizly.com', 'testtest')
+        user = User('clf9@njit.edu', 'testtest')
         db.session.add(user)
         db.session.commit()
-        res = client.post('/login', data=dict(email="keith@webizly.com", password='testtest'), follow_redirects=True)
+        res = client.post('/login', data=dict(email="clf9@njit.edu", password='testtest'), follow_redirects=True)
         assert res.status_code == 200
         db.session.delete(user)
 
 
 def test_register_auth(client):
     with client:
-        res = client.post('/register', data=dict(email="keith@webizly.com", password='testtest'), follow_redirects=True)
+        res = client.post('/register', data=dict(email="clf9@njit.edu", password='testtest'), follow_redirects=True)
         print(res.data)
         assert res.status_code == 200
+
+
+def test_dashboard_access(application, client):
+    with application.app_context():
+        user = User('clf9@njit.edu', 'testtest')
+        assert user.is_authenticated() == True
