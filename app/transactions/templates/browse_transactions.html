@@ -7,17 +7,17 @@
     {% block title %}Browse: {{ record_type }}{% endblock %}
     {% block content %}
 
+                <a href="{{ url_for("transactions.transactions_upload") }}" class="btn col-3 mb-5 btn-info" role="button">Upload Transactions</a>
 
-        <h2>Dashboard</h2>
-        <p>Welcome: {{ current_user.email }}</p>
+        <h2>Browse: Transactions</h2>
         <h4>Balance: $ {{ current_user.balance }}</h4>
         {{ render_table(data) }}
         {% from 'bootstrap5/pagination.html' import render_pagination %}
 
         {{ render_pagination(pagination) }}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
         <script type=text/javascript>
             $(document).ready(function () {
                 $('.table').DataTable();

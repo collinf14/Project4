@@ -70,12 +70,25 @@ class Location(db.Model, SerializerMixin):
             'population': self.population,
         }
 
+class Transaction(db.Model, SerializerMixin):
+    __tablename__ = 'transactions'
+    id = db.Column(db.Integer, primary_key=True)
+    amount = db.Column(db.String(300), nullable=True, unique=False)
+    type = db.Column(db.String(300), nullable=True, unique=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user = relationship("User", back_populates="transactions", uselist=False)
+
+    def __init__(self, amount, type):
+        self.amount = amount
+        self.type = type
+
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(300), nullable=False)
+    balance = db.Column(db.Integer, nullable=True)
     about = db.Column(db.String(300), nullable=True, unique=False)
     authenticated = db.Column(db.Boolean, default=False)
     registered_on = db.Column('registered_on', db.DateTime)
@@ -83,6 +96,7 @@ class User(UserMixin, db.Model):
     is_admin = db.Column('is_admin', db.Boolean(), nullable=False, server_default='0')
     songs = db.relationship("Song", back_populates="user", cascade="all, delete")
     locations = db.relationship("Location", back_populates="user", cascade="all, delete")
+    transactions = db.relationship("Transaction", back_populates="user", cascade="all, delete")
     #locations = db.relationship("Location",secondary=location_user, backref="users")
     #songs = db.relationship("Song",secondary=song_user, backref="users")
 
