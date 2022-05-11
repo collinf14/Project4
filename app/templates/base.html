@@ -56,10 +56,11 @@
                                 <li><a class="dropdown-item" href="{{ url_for("auth.edit_account") }}">Manage
                                     Account</a></li>
                                 {% if current_user.is_admin %}
-                                    <li><a class="dropdown-item" href="{{ url_for("auth.browse_users") }}">User Mgmt</a></li>
+
                                     <li><a class="dropdown-item" href="{{ url_for("map.browse_locations") }}">Loc Mgmt</a></li>
                                     <li><a class="dropdown-item" href="{{ url_for("songs.songs_browse") }}">Song Mgmt</a></li>
                                     <li><a class="dropdown-item" href="{{ url_for("map.browse_locations_datatables") }}">Loc Mgmt(dt)</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for("transactions.transactions_browse") }}">Trans Mgmt</a></li>
 
 
                                 {% endif %}
@@ -94,7 +95,7 @@
 
 {% endblock %}
 <footer class="text-center mt-5">
-    <b>Music Playlist Upload</b><br>
+    <b>Transaction Playlist Upload</b><br>
         Environment: {{ deployment_environment }} - Copyright: {{ year }}<br>
         Message: {{ mymessage }} {{ format_price(100) }}<br>
         Contact: <a href="mailto:EMAIL_ADDRESS">clf9@njit.edu</a><br>
