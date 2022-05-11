@@ -7,7 +7,7 @@ from app.auth.decorators import admin_required
 from app.auth.forms import login_form, register_form, profile_form, security_form, user_edit_form
 from app.db import db
 from app.db.models import User
-from app.songs import Song, songs
+from app.transactions import Transaction
 
 auth = Blueprint('auth', __name__, template_folder='templates')
 
@@ -72,7 +72,7 @@ def logout():
 def dashboard(page):
     page = page
     per_page = 1000
-    pagination = Song.query.paginate(page, per_page, error_out=False)
+    pagination = Transaction.query.paginate(page, per_page, error_out=False)
     data = pagination.items
     try:
         return render_template('dashboard.html',data=data,pagination=pagination)

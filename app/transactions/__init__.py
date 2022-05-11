@@ -43,7 +43,7 @@ def transactions_upload():
         with open(filepath) as file:
             csv_file = csv.DictReader(file)
             for row in csv_file:
-                list_of_transactions.append(Transaction(row['Amount'] ,row['Type']))
+                list_of_transactions.append(Transaction(row['AMOUNT'] ,row['TYPE']))
 
         current_user.transactions = list_of_transactions
         db.session.commit()
