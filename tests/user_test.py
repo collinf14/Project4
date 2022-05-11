@@ -87,3 +87,9 @@ def test_trans_amount(application):
         assert amount1.amount == "1900"
         assert type1.type == "DEBIT"
 
+def test_no_balance(application):
+    with application.app_context():
+        user = User('clf9@njit.edu', 'testtest')
+        db.session.add(user)
+        assert user.balance == None
+
