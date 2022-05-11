@@ -10,6 +10,7 @@
 
         <h2>Dashboard</h2>
         <p>Welcome: {{ current_user.email }}</p>
+        <h4>Balance: $ {{ current_user.balance }}</h4>
         {{ render_table(data) }}
         {% from 'bootstrap5/pagination.html' import render_pagination %}
 

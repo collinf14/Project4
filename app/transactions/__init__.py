@@ -42,10 +42,13 @@ def transactions_upload():
         list_of_transactions = []
         with open(filepath) as file:
             csv_file = csv.DictReader(file)
+            balance = 0
             for row in csv_file:
                 list_of_transactions.append(Transaction(row['AMOUNT'] ,row['TYPE']))
+                balance = int(row['AMOUNT']) + balance
 
         current_user.transactions = list_of_transactions
+        current_user.balance = balance
         db.session.commit()
 
         return redirect(url_for('transactions.transactions_browse'))
