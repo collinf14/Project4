@@ -76,6 +76,7 @@ def test_dashboard_denial(application, client):
         assert res.status_code == 200
         db.session.delete(user)
 
+
 def test_trans_amount(application):
     with application.app_context():
         user = User('clf9@njit.edu', 'testtest')
