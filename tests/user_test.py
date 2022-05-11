@@ -77,7 +77,7 @@ def test_dashboard_denial(application, client):
         db.session.delete(user)
 
 
-def test_trans_amount(application):
+def test_trans_user(application):
     with application.app_context():
         user = User('clf9@njit.edu', 'testtest')
         db.session.add(user)
@@ -92,4 +92,15 @@ def test_no_balance(application):
         user = User('clf9@njit.edu', 'testtest')
         db.session.add(user)
         assert user.balance == None
+
+
+def test_balance_amount(application):
+    with application.app_context():
+        user = User('clf9@njit.edu', 'testtest')
+        db.session.add(user)
+        user.transactions = [Transaction("1900", "DEBIT"), Transaction("-200", "CREDIT")]
+        amount1 = Transaction.query.filter_by(amount='1900').first()
+        amount2 = Transaction.query.filter_by(amount='-200').first()
+        balance = int(amount1.amount) + int(amount2.amount)
+        assert balance == 1700
 
