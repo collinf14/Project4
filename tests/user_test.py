@@ -1,7 +1,7 @@
 import logging
 
 from app import db
-from app.db.models import User, Song
+from app.db.models import User, Song, Transaction
 
 
 def test_adding_user(application):
@@ -75,3 +75,32 @@ def test_dashboard_denial(application, client):
         assert res2.status_code == 405
         assert res.status_code == 200
         db.session.delete(user)
+
+
+def test_trans_user(application):
+    with application.app_context():
+        user = User('clf9@njit.edu', 'testtest')
+        db.session.add(user)
+        user.transactions = [Transaction("1900", "DEBIT"), Transaction("-200", "CREDIT")]
+        amount1 = Transaction.query.filter_by(amount='1900').first()
+        type1 = Transaction.query.filter_by(type='DEBIT').first()
+        assert amount1.amount == "1900"
+        assert type1.type == "DEBIT"
+
+def test_no_balance(application):
+    with application.app_context():
+        user = User('clf9@njit.edu', 'testtest')
+        db.session.add(user)
+        assert user.balance == None
+
+
+def test_balance_amount(application):
+    with application.app_context():
+        user = User('clf9@njit.edu', 'testtest')
+        db.session.add(user)
+        user.transactions = [Transaction("1900", "DEBIT"), Transaction("-200", "CREDIT")]
+        amount1 = Transaction.query.filter_by(amount='1900').first()
+        amount2 = Transaction.query.filter_by(amount='-200').first()
+        balance = int(amount1.amount) + int(amount2.amount)
+        assert balance == 1700
+
